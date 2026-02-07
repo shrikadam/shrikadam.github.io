@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shriniwas Kadam | AI Roboticist</title>
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --bg-color: #fcfbf9; 
+            --text-color: #333333;
+            --accent-color: #2c5282; 
+            --secondary-text: #666666;
+            --border-color: #eaeaea;
+            --card-bg: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0 40px; 
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.2s; }
+        a:hover { color: var(--accent-color); }
+
+        /* --- LAYOUT UTILS --- */
+        .container {
+            max-width: 1000px; 
+            margin: 0 auto;
+            padding: 80px 0;
+        }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-bottom: 60px;
+            align-items: center; 
+            /* REMOVED border-bottom as requested */
+            position: relative;
+        }
+
+        .profile-photo {
+            width: 250px; 
+            height: 250px;
+            background-color: #eee; 
+            border-radius: 50%;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .bio-section { flex: 1; min-width: 300px; display: flex; flex-direction: column; justify-content: center; }
+
+        .bio-section h1 {
+            font-size: 2.2rem; 
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .bio-section .role {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .bio-section p { font-size: 0.95rem; max-width: 600px; }
+
+        .socials { margin-top: 15px; }
+        .socials a {
+            margin-right: 20px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            /* Optional: underline to make them look more like 'links' vs nav */
+            text-decoration: underline; 
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+        }
+        .socials a:hover { text-decoration: none; }
+
+        /* --- SEARCH BAR --- */
+        .search-wrapper {
+            margin-top: 25px;
+            position: relative;
+            max-width: 300px;
+        }
+        
+        #searchInput {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.5);
+            transition: all 0.2s;
+        }
+        
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.1);
+        }
+
+        /* --- NAV (Top Right) --- */
+        nav { position: absolute; top: 0; right: 0; }
+        nav ul { list-style: none; display: flex; gap: 30px; }
+        nav a { 
+            /* Same font family as body, but distinctive weight/color */
+            font-family: inherit; 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+            color: var(--secondary-text); 
+            letter-spacing: 0.2px;
+        }
+        nav a:hover { color: var(--accent-color); }
+
+        @media (max-width: 850px) {
+            nav { position: static; margin-bottom: 20px; width: 100%; }
+            header { flex-direction: column; gap: 30px; text-align: left; align-items: flex-start; }
+            .profile-photo { width: 150px; height: 150px; }
+        }
+
+        /* --- SECTIONS --- */
+        section { margin-bottom: 90px; scroll-margin-top: 20px; }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h2 { font-size: 1.5rem; font-weight: 700; color: #111; }
+
+        /* --- GRID (Projects/Videos) --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+        
+        .card:hover { border-color: #bbb; transform: translateY(-2px); }
+
+        .thumbnail {
+            width: 100%;
+            height: 130px;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .card-content { padding: 15px; }
+        .card-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; display: block; }
+        .card-meta { font-size: 0.75rem; color: #888; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;}
+        .card-desc { font-size: 0.85rem; color: #555; line-height: 1.5; }
+
+        /* --- PAPERS LIST --- */
+        .paper-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+        
+        .paper-thumb {
+            width: 80px; 
+            height: 100px;
+            background-color: #f4f4f4;
+            flex-shrink: 0;
+            border: 1px solid #eee;
+        }
+
+        .paper-details h3 { font-size: 1.1rem; margin-bottom: 5px; font-weight: 600; }
+        .paper-details p { font-size: 0.95rem; color: #444; margin-bottom: 6px; }
+        .paper-links a { font-size: 0.85rem; color: var(--accent-color); margin-right: 12px; font-weight: 600;}
+
+        /* --- BLOGS LIST VIEW (New) --- */
+        .blog-list { display: flex; flex-direction: column; gap: 0; }
+        
+        .blog-item {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+            align-items: baseline;
+        }
+        .blog-item:hover .blog-title { color: var(--accent-color); }
+
+        .blog-date {
+            width: 120px;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+            font-family: monospace; /* Optional: Makes dates align nicely */
+        }
+
+        .blog-content { flex-grow: 1; }
+        .blog-title { font-size: 1.05rem; font-weight: 600; display: block; margin-bottom: 4px; }
+        .blog-subtitle { font-size: 0.9rem; color: #666; display: block; }
+
+        @media (max-width: 600px) {
+            .blog-item { flex-direction: column; gap: 5px; }
+            .blog-date { width: auto; font-size: 0.8rem; color: #888; margin-bottom: 2px;}
+        }
+
+        /* --- UTILS --- */
+        .hidden-item { display: none !important; }
+        
+        .see-all-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .see-all-btn:hover { color: var(--accent-color); }
+        
+        .no-results {
+            display: none;
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+            padding: 20px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #aaa;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <img src="https://via.placeholder.com/250" alt="Profile Photo" class="profile-photo">
+        
+        <div class="bio-section">
+            <nav>
+                <ul>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#papers">Papers</a></li>
+                    <li><a href="#videos">Videos</a></li>
+                    <li><a href="#blogs">Blog</a></li>
+                </ul>
+            </nav>
+
+            <h1>Shriniwas Kadam</h1>
+            <span class="role">AI Roboticist & Researcher</span>
+            <p>
+                Specializing in Reinforcement Learning and embodied intelligence.
+                Building robots that act in the unstructured world.
+            </p>
+            
+            <div class="socials">
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">YouTube</a>
+                <a href="#">Google Scholar</a>
+            </div>
+
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Search projects, papers, topics...">
+            </div>
+        </div>
+    </header>
+
+    <section id="projects">
+        <div class="section-header">
+            <h2>Projects</h2>
+            <button class="see-all-btn" onclick="toggleSection('projects')">See All</button>
+        </div>
+        <div class="grid" id="grid-projects">
+            <a href="#" class="card search-target">
+                <div class="thumbnail">Quadruped</div>
+                <div class="card-content">
+                    <span class="card-title">Locomotion RL</span>
+                    <p class="card-desc">Sim-to-Real transfer using PPO on uneven terrain.</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">Grasping</div>
+                <div class="card-content">
+                    <span class="card-title">Glass Grasping Net</span>
+                    <p class="card-desc">Depth completion for transparent objects.</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">Arm</div>
+                <div class="card-content">
+                    <span class="card-title">Open Manipulator</span>
+                    <p class="card-desc">Low-cost 6-DOF arm with ROS2 integration.</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">SLAM</div>
+                <div class="card-content">
+                    <span class="card-title">Dynamic Mapping</span>
+                    <p class="card-desc">Robust SLAM in crowded human environments.</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">Teleop</div>
+                <div class="card-content">
+                    <span class="card-title">Haptic Teleoperation</span>
+                    <p class="card-desc">Low-latency control for bimanual tasks.</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">Drone</div>
+                <div class="card-content">
+                    <span class="card-title">Forest Navigation</span>
+                    <p class="card-desc">Collision avoidance using optical flow.</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">Soft Bot</div>
+                <div class="card-content">
+                    <span class="card-title">Pneumatic Hand</span>
+                    <p class="card-desc">Handling delicate fruits.</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">Sim</div>
+                <div class="card-content">
+                    <span class="card-title">KitchenSim v2</span>
+                    <p class="card-desc">Benchmark environment for household tasks.</p>
+                </div>
+            </a>
+            
+            <a href="#" class="card search-target hidden-item">
+                <div class="thumbnail">Line Follower</div>
+                <div class="card-content">
+                    <span class="card-title">Undergrad Bot</span>
+                    <p class="card-desc">First robot built during undergrad.</p>
+                </div>
+            </a>
+        </div>
+        <div class="no-results">No projects found.</div>
+    </section>
+
+    <section id="papers">
+        <div class="section-header">
+            <h2>Selected Papers</h2>
+            <button class="see-all-btn" onclick="toggleSection('papers')">See All</button>
+        </div>
+        <div id="list-papers">
+            <div class="paper-item search-target">
+                <div class="paper-thumb"></div>
+                <div class="paper-details">
+                    <h3>Learning Dexterous Manipulation from Video</h3>
+                    <p><strong>A. Turing</strong>, B. Gates. <em>ICRA 2025</em></p>
+                    <div class="paper-links"><a href="#">[PDF]</a> <a href="#">[Code]</a></div>
+                </div>
+            </div>
+            <div class="paper-item search-target">
+                <div class="paper-thumb"></div>
+                <div class="paper-details">
+                    <h3>Robust Perception for Field Robotics</h3>
+                    <p>E. Musk, <strong>A. Turing</strong>. <em>IROS 2024</em></p>
+                    <div class="paper-links"><a href="#">[PDF]</a></div>
+                </div>
+            </div>
+             <div class="paper-item search-target">
+                <div class="paper-thumb"></div>
+                <div class="paper-details">
+                    <h3>Self-Supervised Terrain Analysis</h3>
+                    <p><strong>A. Turing</strong>. <em>RSS 2024</em></p>
+                    <div class="paper-links"><a href="#">[PDF]</a></div>
+                </div>
+            </div>
+             <div class="paper-item search-target">
+                <div class="paper-thumb"></div>
+                <div class="paper-details">
+                    <h3>Transformer Optimization</h3>
+                    <p>J. Dean, <strong>A. Turing</strong>. <em>CoRL 2023</em></p>
+                    <div class="paper-links"><a href="#">[PDF]</a></div>
+                </div>
+            </div>
+            <div class="paper-item search-target hidden-item">
+                <div class="paper-thumb"></div>
+                <div class="paper-details">
+                    <h3>Early Neural Network Research</h3>
+                    <p><strong>A. Turing</strong>. <em>arXiv 2022</em></p>
+                    <div class="paper-links"><a href="#">[PDF]</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="no-results">No papers found.</div>
+    </section>
+
+    <section id="videos">
+        <div class="section-header">
+            <h2>Videos</h2>
+            <button class="see-all-btn" onclick="toggleSection('videos')">See All</button>
+        </div>
+        <div class="grid" id="grid-videos">
+            <a href="#" class="card search-target">
+                <div class="thumbnail">►</div>
+                <div class="card-content">
+                    <span class="card-title">ICRA 2025 Talk</span>
+                    <p class="card-meta">15 min • Presentation</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">►</div>
+                <div class="card-content">
+                    <span class="card-title">Parkour Demo</span>
+                    <p class="card-meta">2 min • Hardware</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">►</div>
+                <div class="card-content">
+                    <span class="card-title">Lab Tour</span>
+                    <p class="card-meta">5 min • Vlog</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">►</div>
+                <div class="card-content">
+                    <span class="card-title">Fail Compilation</span>
+                    <p class="card-meta">3 min • Bloopers</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">►</div>
+                <div class="card-content">
+                    <span class="card-title">ROS2 Tutorial</span>
+                    <p class="card-meta">20 min • Educational</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">►</div>
+                <div class="card-content">
+                    <span class="card-title">Sim Visualization</span>
+                    <p class="card-meta">1 min • Simulation</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">►</div>
+                <div class="card-content">
+                    <span class="card-title">Sensor Calibration</span>
+                    <p class="card-meta">10 min • Guide</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target">
+                <div class="thumbnail">►</div>
+                <div class="card-content">
+                    <span class="card-title">Thesis Defense</span>
+                    <p class="card-meta">45 min • Talk</p>
+                </div>
+            </a>
+            <a href="#" class="card search-target hidden-item">
+                <div class="thumbnail">►</div>
+                <div class="card-content">
+                    <span class="card-title">Old Demo</span>
+                    <p class="card-meta">1 min • Archive</p>
+                </div>
+            </a>
+        </div>
+        <div class="no-results">No videos found.</div>
+    </section>
+
+    <section id="blogs">
+        <div class="section-header">
+            <h2>Blog</h2>
+            <button class="see-all-btn" onclick="toggleSection('blogs')">See All</button>
+        </div>
+        <div class="blog-list" id="list-blogs">
+            <a href="#" class="blog-item search-target">
+                <div class="blog-date">Oct 12, 2025</div>
+                <div class="blog-content">
+                    <span class="blog-title">Setting up ROS2 on MacOS</span>
+                    <span class="blog-subtitle">A comprehensive guide to avoiding dependency hell.</span>
+                </div>
+            </a>
+            <a href="#" class="blog-item search-target">
+                <div class="blog-date">Sept 01, 2025</div>
+                <div class="blog-content">
+                    <span class="blog-title">Why End-to-End Learning is Hard</span>
+                    <span class="blog-subtitle">Thoughts on the current state of robotic foundation models.</span>
+                </div>
+            </a>
+            <a href="#" class="blog-item search-target">
+                <div class="blog-date">Aug 15, 2025</div>
+                <div class="blog-content">
+                    <span class="blog-title">Optimizing CUDA Kernels</span>
+                    <span class="blog-subtitle">Squeezing every bit of performance for real-time inference.</span>
+                </div>
+            </a>
+            <a href="#" class="blog-item search-target">
+                <div class="blog-date">July 20, 2025</div>
+                <div class="blog-content">
+                    <span class="blog-title">Paper Review: LoRA for Control</span>
+                    <span class="blog-subtitle">Adapting large models for low-compute edge devices.</span>
+                </div>
+            </a>
+            <a href="#" class="blog-item search-target">
+                <div class="blog-date">June 10, 2025</div>
+                <div class="blog-content">
+                    <span class="blog-title">Dockerizing Your Stack</span>
+                    <span class="blog-subtitle">How to ensure reproducibility in field robotics.</span>
+                </div>
+            </a>
+            <a href="#" class="blog-item search-target">
+                <div class="blog-date">May 05, 2025</div>
+                <div class="blog-content">
+                    <span class="blog-title">Surviving ICRA</span>
+                    <span class="blog-subtitle">Tips for first-time conference attendees.</span>
+                </div>
+            </a>
+            
+            <a href="#" class="blog-item search-target hidden-item">
+                <div class="blog-date">Apr 22, 2025</div>
+                <div class="blog-content">
+                    <span class="blog-title">LiDAR vs Camera</span>
+                    <span class="blog-subtitle">The eternal debate in autonomous driving.</span>
+                </div>
+            </a>
+            <a href="#" class="blog-item search-target hidden-item">
+                <div class="blog-date">Jan 01, 2025</div>
+                <div class="blog-content">
+                    <span class="blog-title">Hello World</span>
+                    <span class="blog-subtitle">Starting this blog to document my research journey.</span>
+                </div>
+            </a>
+        </div>
+        <div class="no-results">No posts found.</div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Shriniwas Kadam.</p>
+    </footer>
+
+</div>
+
+<script>
+    // --- SEARCH & VISIBILITY LOGIC ---
+    const searchInput = document.getElementById('searchInput');
+    const sections = ['projects', 'papers', 'videos', 'blogs'];
+
+    // CONFIG: Default Visible Counts
+    const defaultVisibleCounts = {
+        'projects': 8, 
+        'papers': 4,   
+        'videos': 8,   
+        'blogs': 6     
+    };
+
+    // 1. Initialize View
+    window.addEventListener('DOMContentLoaded', () => {
+        sections.forEach(sectionId => resetSection(sectionId));
+    });
+
+    // 2. Search Event Listener
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase().trim();
+        const isSearching = term.length > 0;
+
+        sections.forEach(sectionId => {
+            let container = document.getElementById('grid-' + sectionId) || document.getElementById('list-' + sectionId);
+            const items = container.querySelectorAll('.search-target');
+            const seeAllBtn = document.querySelector(`#${sectionId} .see-all-btn`);
+            const noResultsMsg = document.querySelector(`#${sectionId} .no-results`);
+            let visibleCount = 0;
+
+            if (isSearching) {
+                // SEARCH MODE
+                seeAllBtn.style.display = 'none'; // Hide button during search
+                
+                items.forEach(item => {
+                    const text = item.innerText.toLowerCase();
+                    if (text.includes(term)) {
+                        item.classList.remove('hidden-item');
+                        visibleCount++;
+                    } else {
+                        item.classList.add('hidden-item');
+                    }
+                });
+
+                if(noResultsMsg) noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+
+            } else {
+                // CLEAR MODE
+                resetSection(sectionId);
+            }
+        });
+    });
+
+    // 3. Reset Section (Apply default counts)
+    function resetSection(sectionId) {
+        let container = document.getElementById('grid-' + sectionId) || document.getElementById('list-' + sectionId);
+        const items = container.querySelectorAll('.search-target');
+        const seeAllBtn = document.querySelector(`#${sectionId} .see-all-btn`);
+        const noResultsMsg = document.querySelector(`#${sectionId} .no-results`);
+        
+        const limit = defaultVisibleCounts[sectionId];
+        const total = items.length;
+
+        items.forEach((item, index) => {
+            if (index < limit) {
+                item.classList.remove('hidden-item');
+            } else {
+                item.classList.add('hidden-item');
+            }
+        });
+
+        // Toggle Button Visibility: Only show if there are more items than the limit
+        if(seeAllBtn) {
+            seeAllBtn.innerText = 'See All';
+            seeAllBtn.style.display = (total > limit) ? 'inline-block' : 'none';
+        }
+        if(noResultsMsg) noResultsMsg.style.display = 'none';
+    }
+
+    // 4. Toggle Logic (Expand/Collapse)
+    function toggleSection(sectionId) {
+        let container = document.getElementById('grid-' + sectionId) || document.getElementById('list-' + sectionId);
+        const btn = document.querySelector(`#${sectionId} .see-all-btn`);
+        
+        if (btn.innerText === "See All") {
+            // SHOW ALL
+            const allItems = container.querySelectorAll('.search-target');
+            allItems.forEach(item => item.classList.remove('hidden-item'));
+            btn.innerText = "Show Less";
+        } else {
+            // COLLAPSE
+            resetSection(sectionId);
+            document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'});
+        }
+    }
+
+</script>
+
+</body>
+</html>
