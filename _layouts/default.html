@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shriniwas Kadam | AI Roboticist</title>
+    <title>{{ site.title }}</title>
     <style>
+        < !DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Shriniwas Kadam | AI Roboticist</title><style>
+
         /* --- CSS VARIABLES --- */
         :root {
             --bg-color: #fcfbf9;
@@ -631,18 +632,64 @@
                 <h2>Blog</h2>
                 <button class="see-all-btn" onclick="toggleSection('blogs')">See All</button>
             </div>
-
             <div class="blog-list" id="list-blogs">
-
-                {% for post in site.posts limit:6 %}
-                <a href="{{ post.url | relative_url }}" class="blog-item search-target">
-                    <div class="blog-date">{{ post.date | date: "%b %d, %Y" }}</div>
+                <a href="#" class="blog-item search-target">
+                    <div class="blog-date">Oct 12, 2025</div>
                     <div class="blog-content">
-                        <span class="blog-title">{{ post.title }}</span>
-                        <span class="blog-subtitle">{{ post.subtitle }}</span>
+                        <span class="blog-title">Setting up ROS2 on MacOS</span>
+                        <span class="blog-subtitle">A comprehensive guide to avoiding dependency hell.</span>
                     </div>
                 </a>
-                {% endfor %}
+                <a href="#" class="blog-item search-target">
+                    <div class="blog-date">Sept 01, 2025</div>
+                    <div class="blog-content">
+                        <span class="blog-title">Why End-to-End Learning is Hard</span>
+                        <span class="blog-subtitle">Thoughts on the current state of robotic foundation models.</span>
+                    </div>
+                </a>
+                <a href="#" class="blog-item search-target">
+                    <div class="blog-date">Aug 15, 2025</div>
+                    <div class="blog-content">
+                        <span class="blog-title">Optimizing CUDA Kernels</span>
+                        <span class="blog-subtitle">Squeezing every bit of performance for real-time inference.</span>
+                    </div>
+                </a>
+                <a href="#" class="blog-item search-target">
+                    <div class="blog-date">July 20, 2025</div>
+                    <div class="blog-content">
+                        <span class="blog-title">Paper Review: LoRA for Control</span>
+                        <span class="blog-subtitle">Adapting large models for low-compute edge devices.</span>
+                    </div>
+                </a>
+                <a href="#" class="blog-item search-target">
+                    <div class="blog-date">June 10, 2025</div>
+                    <div class="blog-content">
+                        <span class="blog-title">Dockerizing Your Stack</span>
+                        <span class="blog-subtitle">How to ensure reproducibility in field robotics.</span>
+                    </div>
+                </a>
+                <a href="#" class="blog-item search-target">
+                    <div class="blog-date">May 05, 2025</div>
+                    <div class="blog-content">
+                        <span class="blog-title">Surviving ICRA</span>
+                        <span class="blog-subtitle">Tips for first-time conference attendees.</span>
+                    </div>
+                </a>
+
+                <a href="#" class="blog-item search-target hidden-item">
+                    <div class="blog-date">Apr 22, 2025</div>
+                    <div class="blog-content">
+                        <span class="blog-title">LiDAR vs Camera</span>
+                        <span class="blog-subtitle">The eternal debate in autonomous driving.</span>
+                    </div>
+                </a>
+                <a href="#" class="blog-item search-target hidden-item">
+                    <div class="blog-date">Jan 01, 2025</div>
+                    <div class="blog-content">
+                        <span class="blog-title">Hello World</span>
+                        <span class="blog-subtitle">Starting this blog to document my research journey.</span>
+                    </div>
+                </a>
             </div>
             <div class="no-results">No posts found.</div>
         </section>
@@ -751,6 +798,21 @@
 
     </script>
 
+</body>
+
+</html>
+</style>
+</head>
+
+<body>
+    <div class="container">
+
+        {{ content }}
+
+        <footer>
+            <p>&copy; 2026 Alex Turing.</p>
+        </footer>
+    </div>
 </body>
 
 </html>
