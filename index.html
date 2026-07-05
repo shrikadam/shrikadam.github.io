@@ -28,69 +28,18 @@ layout: default
         <button class="see-all-btn" onclick="toggleSection('projects')">See All</button>
     </div>
     <div class="grid" id="grid-projects">
-        <a href="#" class="card search-target">
-            <div class="thumbnail">Quadruped</div>
+        {% for project in site.data.projects %}
+        <a href="{{ project.url }}" target="_blank" rel="noopener noreferrer" class="card search-target">
+            <div class="thumbnail">
+                <img src="{{ project.image | relative_url }}" alt="{{ project.title }}"
+                    style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
             <div class="card-content">
-                <span class="card-title">Locomotion RL</span>
-                <p class="card-desc">Sim-to-Real transfer using PPO on uneven terrain.</p>
+                <span class="card-title">{{ project.title }}</span>
+                <p class="card-desc">{{ project.desc }}</p>
             </div>
         </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">Grasping</div>
-            <div class="card-content">
-                <span class="card-title">Glass Grasping Net</span>
-                <p class="card-desc">Depth completion for transparent objects.</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">Arm</div>
-            <div class="card-content">
-                <span class="card-title">Open Manipulator</span>
-                <p class="card-desc">Low-cost 6-DOF arm with ROS2 integration.</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">SLAM</div>
-            <div class="card-content">
-                <span class="card-title">Dynamic Mapping</span>
-                <p class="card-desc">Robust SLAM in crowded human environments.</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">Teleop</div>
-            <div class="card-content">
-                <span class="card-title">Haptic Teleoperation</span>
-                <p class="card-desc">Low-latency control for bimanual tasks.</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">Drone</div>
-            <div class="card-content">
-                <span class="card-title">Forest Navigation</span>
-                <p class="card-desc">Collision avoidance using optical flow.</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">Soft Bot</div>
-            <div class="card-content">
-                <span class="card-title">Pneumatic Hand</span>
-                <p class="card-desc">Handling delicate fruits.</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">Sim</div>
-            <div class="card-content">
-                <span class="card-title">KitchenSim v2</span>
-                <p class="card-desc">Benchmark environment for household tasks.</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target hidden-item">
-            <div class="thumbnail">Line Follower</div>
-            <div class="card-content">
-                <span class="card-title">Undergrad Bot</span>
-                <p class="card-desc">First robot built during undergrad.</p>
-            </div>
-        </a>
+        {% endfor %}
     </div>
     <div class="no-results">No projects found.</div>
 </section>
@@ -101,69 +50,19 @@ layout: default
         <button class="see-all-btn" onclick="toggleSection('videos')">See All</button>
     </div>
     <div class="grid" id="grid-videos">
-        <a href="#" class="card search-target">
-            <div class="thumbnail">►</div>
+        {% for video in site.data.videos %}
+        <a href="https://www.youtube.com/watch?v={{ video.id }}" target="_blank" rel="noopener noreferrer"
+            class="card search-target">
+            <div class="thumbnail">
+                <img src="https://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg" alt="{{ video.title }}"
+                    style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
             <div class="card-content">
-                <span class="card-title">ICRA 2025 Talk</span>
-                <p class="card-meta">15 min • Presentation</p>
+                <span class="card-title">{{ video.title }}</span>
+                <p class="card-meta">{{ video.meta }}</p>
             </div>
         </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">►</div>
-            <div class="card-content">
-                <span class="card-title">Parkour Demo</span>
-                <p class="card-meta">2 min • Hardware</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">►</div>
-            <div class="card-content">
-                <span class="card-title">Lab Tour</span>
-                <p class="card-meta">5 min • Vlog</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">►</div>
-            <div class="card-content">
-                <span class="card-title">Fail Compilation</span>
-                <p class="card-meta">3 min • Bloopers</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">►</div>
-            <div class="card-content">
-                <span class="card-title">ROS2 Tutorial</span>
-                <p class="card-meta">20 min • Educational</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">►</div>
-            <div class="card-content">
-                <span class="card-title">Sim Visualization</span>
-                <p class="card-meta">1 min • Simulation</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">►</div>
-            <div class="card-content">
-                <span class="card-title">Sensor Calibration</span>
-                <p class="card-meta">10 min • Guide</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target">
-            <div class="thumbnail">►</div>
-            <div class="card-content">
-                <span class="card-title">Thesis Defense</span>
-                <p class="card-meta">45 min • Talk</p>
-            </div>
-        </a>
-        <a href="#" class="card search-target hidden-item">
-            <div class="thumbnail">►</div>
-            <div class="card-content">
-                <span class="card-title">Old Demo</span>
-                <p class="card-meta">1 min • Archive</p>
-            </div>
-        </a>
+        {% endfor %}
     </div>
     <div class="no-results">No videos found.</div>
 </section>
@@ -174,46 +73,21 @@ layout: default
         <button class="see-all-btn" onclick="toggleSection('papers')">See All</button>
     </div>
     <div id="list-papers">
+        {% for paper in site.data.papers %}
         <div class="paper-item search-target">
-            <div class="paper-thumb"></div>
+            <div class="paper-thumb">
+            </div>
             <div class="paper-details">
-                <h3>Learning Dexterous Manipulation from Video</h3>
-                <p><strong>S. Kadam</strong>, B. Gates. <em>ICRA 2025</em></p>
-                <div class="paper-links"><a href="#">[PDF]</a> <a href="#">[Code]</a></div>
+                <h3>{{ paper.title }}</h3>
+                <p>{{ paper.authors }} <em>{{ paper.venue }}</em></p>
+                <div class="paper-links">
+                    {% if paper.pdf %}<a href="{{ paper.pdf }}" target="_blank">[PDF]</a>{% endif %}
+                    {% if paper.code %}<a href="{{ paper.code }}" target="_blank">[Code]</a>{% endif %}
+                    {% if paper.website %}<a href="{{ paper.website }}" target="_blank">[Website]</a>{% endif %}
+                </div>
             </div>
         </div>
-        <div class="paper-item search-target">
-            <div class="paper-thumb"></div>
-            <div class="paper-details">
-                <h3>Robust Perception for Field Robotics</h3>
-                <p>E. Musk, <strong>S. Kadam</strong>. <em>IROS 2024</em></p>
-                <div class="paper-links"><a href="#">[PDF]</a></div>
-            </div>
-        </div>
-        <div class="paper-item search-target">
-            <div class="paper-thumb"></div>
-            <div class="paper-details">
-                <h3>Self-Supervised Terrain Analysis</h3>
-                <p><strong>S. Kadam</strong>. <em>RSS 2024</em></p>
-                <div class="paper-links"><a href="#">[PDF]</a></div>
-            </div>
-        </div>
-        <div class="paper-item search-target">
-            <div class="paper-thumb"></div>
-            <div class="paper-details">
-                <h3>Transformer Optimization</h3>
-                <p>J. Dean, <strong>S. Kadam</strong>. <em>CoRL 2023</em></p>
-                <div class="paper-links"><a href="#">[PDF]</a></div>
-            </div>
-        </div>
-        <div class="paper-item search-target hidden-item">
-            <div class="paper-thumb"></div>
-            <div class="paper-details">
-                <h3>Early Neural Network Research</h3>
-                <p><strong>S. Kadam</strong>. <em>arXiv 2022</em></p>
-                <div class="paper-links"><a href="#">[PDF]</a></div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     <div class="no-results">No papers found.</div>
 </section>

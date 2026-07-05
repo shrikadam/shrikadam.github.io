@@ -1,0 +1,12 @@
+- title: "Learning Dexterous Manipulation from Video"
+  authors: "<strong>S. Kadam</strong>, B. Gates."
+  venue: "ICRA 2025"
+  pdf: "https://arxiv.org/pdf/your-paper.pdf"
+  code: "https://github.com/shrikadam/dex-manip"
+  website: "https://shrikadam.github.io/dex-manip-project"
+
+- title: "Robust Perception for Field Robotics"
+  authors: "E. Musk, <strong>S. Kadam</strong>."
+  venue: "IROS 2024"
+  pdf: "https://arxiv.org/pdf/older-paper.pdf"
+  # Notice: No code or website links here
