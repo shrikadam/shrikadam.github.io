@@ -429,6 +429,26 @@
             </div>
         </header>
 
+        <section id="blogs">
+            <div class="section-header">
+                <h2>Blog</h2>
+                <button class="see-all-btn" onclick="toggleSection('blogs')">See All</button>
+            </div>
+
+            <div class="blog-list" id="list-blogs">
+                {% for post in site.posts limit:6 %}
+                <a href="{{ post.url | relative_url }}" class="blog-item search-target">
+                    <div class="blog-date">{{ post.date | date: "%b %d, %Y" }}</div>
+                    <div class="blog-content">
+                        <span class="blog-title">{{ post.title }}</span>
+                        <span class="blog-subtitle">{{ post.subtitle }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+            <div class="no-results">No posts found.</div>
+        </section>
+
         <section id="projects">
             <div class="section-header">
                 <h2>Projects</h2>
@@ -501,56 +521,6 @@
                 </a>
             </div>
             <div class="no-results">No projects found.</div>
-        </section>
-
-        <section id="papers">
-            <div class="section-header">
-                <h2>Selected Papers</h2>
-                <button class="see-all-btn" onclick="toggleSection('papers')">See All</button>
-            </div>
-            <div id="list-papers">
-                <div class="paper-item search-target">
-                    <div class="paper-thumb"></div>
-                    <div class="paper-details">
-                        <h3>Learning Dexterous Manipulation from Video</h3>
-                        <p><strong>A. Turing</strong>, B. Gates. <em>ICRA 2025</em></p>
-                        <div class="paper-links"><a href="#">[PDF]</a> <a href="#">[Code]</a></div>
-                    </div>
-                </div>
-                <div class="paper-item search-target">
-                    <div class="paper-thumb"></div>
-                    <div class="paper-details">
-                        <h3>Robust Perception for Field Robotics</h3>
-                        <p>E. Musk, <strong>A. Turing</strong>. <em>IROS 2024</em></p>
-                        <div class="paper-links"><a href="#">[PDF]</a></div>
-                    </div>
-                </div>
-                <div class="paper-item search-target">
-                    <div class="paper-thumb"></div>
-                    <div class="paper-details">
-                        <h3>Self-Supervised Terrain Analysis</h3>
-                        <p><strong>A. Turing</strong>. <em>RSS 2024</em></p>
-                        <div class="paper-links"><a href="#">[PDF]</a></div>
-                    </div>
-                </div>
-                <div class="paper-item search-target">
-                    <div class="paper-thumb"></div>
-                    <div class="paper-details">
-                        <h3>Transformer Optimization</h3>
-                        <p>J. Dean, <strong>A. Turing</strong>. <em>CoRL 2023</em></p>
-                        <div class="paper-links"><a href="#">[PDF]</a></div>
-                    </div>
-                </div>
-                <div class="paper-item search-target hidden-item">
-                    <div class="paper-thumb"></div>
-                    <div class="paper-details">
-                        <h3>Early Neural Network Research</h3>
-                        <p><strong>A. Turing</strong>. <em>arXiv 2022</em></p>
-                        <div class="paper-links"><a href="#">[PDF]</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="no-results">No papers found.</div>
         </section>
 
         <section id="videos">
@@ -626,25 +596,54 @@
             <div class="no-results">No videos found.</div>
         </section>
 
-        <section id="blogs">
+        <section id="papers">
             <div class="section-header">
-                <h2>Blog</h2>
-                <button class="see-all-btn" onclick="toggleSection('blogs')">See All</button>
+                <h2>Selected Papers</h2>
+                <button class="see-all-btn" onclick="toggleSection('papers')">See All</button>
             </div>
-
-            <div class="blog-list" id="list-blogs">
-
-                {% for post in site.posts limit:6 %}
-                <a href="{{ post.url | relative_url }}" class="blog-item search-target">
-                    <div class="blog-date">{{ post.date | date: "%b %d, %Y" }}</div>
-                    <div class="blog-content">
-                        <span class="blog-title">{{ post.title }}</span>
-                        <span class="blog-subtitle">{{ post.subtitle }}</span>
+            <div id="list-papers">
+                <div class="paper-item search-target">
+                    <div class="paper-thumb"></div>
+                    <div class="paper-details">
+                        <h3>Learning Dexterous Manipulation from Video</h3>
+                        <p><strong>A. Turing</strong>, B. Gates. <em>ICRA 2025</em></p>
+                        <div class="paper-links"><a href="#">[PDF]</a> <a href="#">[Code]</a></div>
                     </div>
-                </a>
-                {% endfor %}
+                </div>
+                <div class="paper-item search-target">
+                    <div class="paper-thumb"></div>
+                    <div class="paper-details">
+                        <h3>Robust Perception for Field Robotics</h3>
+                        <p>E. Musk, <strong>A. Turing</strong>. <em>IROS 2024</em></p>
+                        <div class="paper-links"><a href="#">[PDF]</a></div>
+                    </div>
+                </div>
+                <div class="paper-item search-target">
+                    <div class="paper-thumb"></div>
+                    <div class="paper-details">
+                        <h3>Self-Supervised Terrain Analysis</h3>
+                        <p><strong>A. Turing</strong>. <em>RSS 2024</em></p>
+                        <div class="paper-links"><a href="#">[PDF]</a></div>
+                    </div>
+                </div>
+                <div class="paper-item search-target">
+                    <div class="paper-thumb"></div>
+                    <div class="paper-details">
+                        <h3>Transformer Optimization</h3>
+                        <p>J. Dean, <strong>A. Turing</strong>. <em>CoRL 2023</em></p>
+                        <div class="paper-links"><a href="#">[PDF]</a></div>
+                    </div>
+                </div>
+                <div class="paper-item search-target hidden-item">
+                    <div class="paper-thumb"></div>
+                    <div class="paper-details">
+                        <h3>Early Neural Network Research</h3>
+                        <p><strong>A. Turing</strong>. <em>arXiv 2022</em></p>
+                        <div class="paper-links"><a href="#">[PDF]</a></div>
+                    </div>
+                </div>
             </div>
-            <div class="no-results">No posts found.</div>
+            <div class="no-results">No papers found.</div>
         </section>
 
         <footer>
