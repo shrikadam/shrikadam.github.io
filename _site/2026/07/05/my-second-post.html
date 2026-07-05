@@ -167,41 +167,32 @@
 <body>
 
     <div class="container">
-        {% if page.url == '/' or page.url == '/index.html' %}
-        <header>
-            <img src="{{ '/assets/images/profile.png' | relative_url }}" alt="Profile Photo" class="profile-photo">
+        
 
-            <div class="bio-section">
-                <!-- <nav>
-                    <ul>
-                        <li><a href="{{ '/' | relative_url }}#blogs">Blog</a></li>
-                        <li><a href="{{ '/' | relative_url }}#projects">Projects</a></li>
-                        <li><a href="{{ '/' | relative_url }}#papers">Papers</a></li>
-                        <li><a href="{{ '/' | relative_url }}#videos">Videos</a></li>
-                    </ul>
-                </nav>  -->
+        <article style="max-width: 800px; margin: 0 auto;">
+    <a href="/" style="color: var(--accent-color); font-weight: 600;">← Back to Home</a>
+    
+    <h1 style="font-size: 2.5rem; margin-top: 30px; margin-bottom: 10px;">My Second Post: Hardware Integration</h1>
+    <p style="color: var(--secondary-text); margin-bottom: 40px; font-family: monospace;">
+        July 05, 2026
+    </p>
 
-                <h1>Shriniwas Kadam</h1>
-                <span class="role">AI Roboticist & Researcher</span>
-                <p>
-                    Building robots that act in the unstructured world.
-                </p>
+    <div class="post-content">
+        <p>It took a few tries, but the new robotic arm is finally wired up and responding to the controller.</p>
 
-                <div class="socials">
-                    <a href="#">GitHub</a>
-                    <a href="#">LinkedIn</a>
-                    <a href="#">YouTube</a>
-                    <!-- <a href="#">Google Scholar</a> -->
-                </div>
+<p>Here is a look at the final hardware setup:</p>
 
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" placeholder="Search projects, papers, topics...">
-                </div>
-            </div>
-        </header>
-        {% endif %}
+<p><img src="/assets/images/posts/my-second-post/robot-arm.jpg" alt="A custom 3D printed robotic arm" /></p>
 
-        {{ content }}
+<p>The next step will be writing the Python script to control the kinematics. Here is a sneak peek:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">move_to_target</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="c1"># Kinematics logic goes here
+</span>    <span class="k">pass</span>
+</code></pre></div></div>
+
+    </div>
+</article>
 
         <footer>
             <p>&copy; 2026 Shriniwas Kadam.</p>

@@ -167,17 +167,17 @@
 <body>
 
     <div class="container">
-        {% if page.url == '/' or page.url == '/index.html' %}
+        
         <header>
-            <img src="{{ '/assets/images/profile.png' | relative_url }}" alt="Profile Photo" class="profile-photo">
+            <img src="/assets/images/profile.png" alt="Profile Photo" class="profile-photo">
 
             <div class="bio-section">
                 <!-- <nav>
                     <ul>
-                        <li><a href="{{ '/' | relative_url }}#blogs">Blog</a></li>
-                        <li><a href="{{ '/' | relative_url }}#projects">Projects</a></li>
-                        <li><a href="{{ '/' | relative_url }}#papers">Papers</a></li>
-                        <li><a href="{{ '/' | relative_url }}#videos">Videos</a></li>
+                        <li><a href="/#blogs">Blog</a></li>
+                        <li><a href="/#projects">Projects</a></li>
+                        <li><a href="/#papers">Papers</a></li>
+                        <li><a href="/#videos">Videos</a></li>
                     </ul>
                 </nav>  -->
 
@@ -199,9 +199,232 @@
                 </div>
             </div>
         </header>
-        {% endif %}
+        
 
-        {{ content }}
+        <section id="blogs">
+    <div class="section-header">
+        <h2>Blog</h2>
+        <button class="see-all-btn" onclick="toggleSection('blogs')">See All</button>
+    </div>
+
+    <div class="blog-list" id="list-blogs">
+        
+        <a href="/2026/07/05/my-second-post.html" class="blog-item search-target">
+            <div class="blog-date">Jul 05, 2026</div>
+            <div class="blog-content">
+                <span class="blog-title">My Second Post: Hardware Integration</span>
+                <span class="blog-subtitle">Wiring the new robotic arm and debugging the servos.</span>
+            </div>
+        </a>
+        
+        <a href="/2026/07/04/first-robot.html" class="blog-item search-target">
+            <div class="blog-date">Jul 04, 2026</div>
+            <div class="blog-content">
+                <span class="blog-title">My First Robot</span>
+                <span class="blog-subtitle">Lessons learned from building a line follower.</span>
+            </div>
+        </a>
+        
+    </div>
+    <div class="no-results">No posts found.</div>
+</section>
+
+<section id="projects">
+    <div class="section-header">
+        <h2>Projects</h2>
+        <button class="see-all-btn" onclick="toggleSection('projects')">See All</button>
+    </div>
+    <div class="grid" id="grid-projects">
+        <a href="#" class="card search-target">
+            <div class="thumbnail">Quadruped</div>
+            <div class="card-content">
+                <span class="card-title">Locomotion RL</span>
+                <p class="card-desc">Sim-to-Real transfer using PPO on uneven terrain.</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">Grasping</div>
+            <div class="card-content">
+                <span class="card-title">Glass Grasping Net</span>
+                <p class="card-desc">Depth completion for transparent objects.</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">Arm</div>
+            <div class="card-content">
+                <span class="card-title">Open Manipulator</span>
+                <p class="card-desc">Low-cost 6-DOF arm with ROS2 integration.</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">SLAM</div>
+            <div class="card-content">
+                <span class="card-title">Dynamic Mapping</span>
+                <p class="card-desc">Robust SLAM in crowded human environments.</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">Teleop</div>
+            <div class="card-content">
+                <span class="card-title">Haptic Teleoperation</span>
+                <p class="card-desc">Low-latency control for bimanual tasks.</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">Drone</div>
+            <div class="card-content">
+                <span class="card-title">Forest Navigation</span>
+                <p class="card-desc">Collision avoidance using optical flow.</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">Soft Bot</div>
+            <div class="card-content">
+                <span class="card-title">Pneumatic Hand</span>
+                <p class="card-desc">Handling delicate fruits.</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">Sim</div>
+            <div class="card-content">
+                <span class="card-title">KitchenSim v2</span>
+                <p class="card-desc">Benchmark environment for household tasks.</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target hidden-item">
+            <div class="thumbnail">Line Follower</div>
+            <div class="card-content">
+                <span class="card-title">Undergrad Bot</span>
+                <p class="card-desc">First robot built during undergrad.</p>
+            </div>
+        </a>
+    </div>
+    <div class="no-results">No projects found.</div>
+</section>
+
+<section id="videos">
+    <div class="section-header">
+        <h2>Videos</h2>
+        <button class="see-all-btn" onclick="toggleSection('videos')">See All</button>
+    </div>
+    <div class="grid" id="grid-videos">
+        <a href="#" class="card search-target">
+            <div class="thumbnail">►</div>
+            <div class="card-content">
+                <span class="card-title">ICRA 2025 Talk</span>
+                <p class="card-meta">15 min • Presentation</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">►</div>
+            <div class="card-content">
+                <span class="card-title">Parkour Demo</span>
+                <p class="card-meta">2 min • Hardware</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">►</div>
+            <div class="card-content">
+                <span class="card-title">Lab Tour</span>
+                <p class="card-meta">5 min • Vlog</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">►</div>
+            <div class="card-content">
+                <span class="card-title">Fail Compilation</span>
+                <p class="card-meta">3 min • Bloopers</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">►</div>
+            <div class="card-content">
+                <span class="card-title">ROS2 Tutorial</span>
+                <p class="card-meta">20 min • Educational</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">►</div>
+            <div class="card-content">
+                <span class="card-title">Sim Visualization</span>
+                <p class="card-meta">1 min • Simulation</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">►</div>
+            <div class="card-content">
+                <span class="card-title">Sensor Calibration</span>
+                <p class="card-meta">10 min • Guide</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target">
+            <div class="thumbnail">►</div>
+            <div class="card-content">
+                <span class="card-title">Thesis Defense</span>
+                <p class="card-meta">45 min • Talk</p>
+            </div>
+        </a>
+        <a href="#" class="card search-target hidden-item">
+            <div class="thumbnail">►</div>
+            <div class="card-content">
+                <span class="card-title">Old Demo</span>
+                <p class="card-meta">1 min • Archive</p>
+            </div>
+        </a>
+    </div>
+    <div class="no-results">No videos found.</div>
+</section>
+
+<section id="papers">
+    <div class="section-header">
+        <h2>Selected Papers</h2>
+        <button class="see-all-btn" onclick="toggleSection('papers')">See All</button>
+    </div>
+    <div id="list-papers">
+        <div class="paper-item search-target">
+            <div class="paper-thumb"></div>
+            <div class="paper-details">
+                <h3>Learning Dexterous Manipulation from Video</h3>
+                <p><strong>S. Kadam</strong>, B. Gates. <em>ICRA 2025</em></p>
+                <div class="paper-links"><a href="#">[PDF]</a> <a href="#">[Code]</a></div>
+            </div>
+        </div>
+        <div class="paper-item search-target">
+            <div class="paper-thumb"></div>
+            <div class="paper-details">
+                <h3>Robust Perception for Field Robotics</h3>
+                <p>E. Musk, <strong>S. Kadam</strong>. <em>IROS 2024</em></p>
+                <div class="paper-links"><a href="#">[PDF]</a></div>
+            </div>
+        </div>
+        <div class="paper-item search-target">
+            <div class="paper-thumb"></div>
+            <div class="paper-details">
+                <h3>Self-Supervised Terrain Analysis</h3>
+                <p><strong>S. Kadam</strong>. <em>RSS 2024</em></p>
+                <div class="paper-links"><a href="#">[PDF]</a></div>
+            </div>
+        </div>
+        <div class="paper-item search-target">
+            <div class="paper-thumb"></div>
+            <div class="paper-details">
+                <h3>Transformer Optimization</h3>
+                <p>J. Dean, <strong>S. Kadam</strong>. <em>CoRL 2023</em></p>
+                <div class="paper-links"><a href="#">[PDF]</a></div>
+            </div>
+        </div>
+        <div class="paper-item search-target hidden-item">
+            <div class="paper-thumb"></div>
+            <div class="paper-details">
+                <h3>Early Neural Network Research</h3>
+                <p><strong>S. Kadam</strong>. <em>arXiv 2022</em></p>
+                <div class="paper-links"><a href="#">[PDF]</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="no-results">No papers found.</div>
+</section>
+</section>
 
         <footer>
             <p>&copy; 2026 Shriniwas Kadam.</p>

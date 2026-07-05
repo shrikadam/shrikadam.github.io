@@ -167,41 +167,33 @@
 <body>
 
     <div class="container">
-        {% if page.url == '/' or page.url == '/index.html' %}
-        <header>
-            <img src="{{ '/assets/images/profile.png' | relative_url }}" alt="Profile Photo" class="profile-photo">
+        
 
-            <div class="bio-section">
-                <!-- <nav>
-                    <ul>
-                        <li><a href="{{ '/' | relative_url }}#blogs">Blog</a></li>
-                        <li><a href="{{ '/' | relative_url }}#projects">Projects</a></li>
-                        <li><a href="{{ '/' | relative_url }}#papers">Papers</a></li>
-                        <li><a href="{{ '/' | relative_url }}#videos">Videos</a></li>
-                    </ul>
-                </nav>  -->
+        <article style="max-width: 800px; margin: 0 auto;">
+    <a href="/" style="color: var(--accent-color); font-weight: 600;">← Back to Home</a>
+    
+    <h1 style="font-size: 2.5rem; margin-top: 30px; margin-bottom: 10px;">My First Robot</h1>
+    <p style="color: var(--secondary-text); margin-bottom: 40px; font-family: monospace;">
+        July 04, 2026
+    </p>
 
-                <h1>Shriniwas Kadam</h1>
-                <span class="role">AI Roboticist & Researcher</span>
-                <p>
-                    Building robots that act in the unstructured world.
-                </p>
+    <div class="post-content">
+        <p>Writing blogs is now incredibly easy!</p>
 
-                <div class="socials">
-                    <a href="#">GitHub</a>
-                    <a href="#">LinkedIn</a>
-                    <a href="#">YouTube</a>
-                    <!-- <a href="#">Google Scholar</a> -->
-                </div>
+<p>I can write simple text, use <strong>bolding</strong>, and create lists:</p>
+<ul>
+  <li>PID controllers are tricky.</li>
+  <li>Hardware fails often.</li>
+</ul>
 
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" placeholder="Search projects, papers, topics...">
-                </div>
-            </div>
-        </header>
-        {% endif %}
+<p>I can also add code blocks easily:</p>
 
-        {{ content }}
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">calculate_error</span><span class="p">(</span><span class="n">sensor_data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">desired_value</span> <span class="o">-</span> <span class="n">sensor_data</span>
+</code></pre></div></div>
+
+    </div>
+</article>
 
         <footer>
             <p>&copy; 2026 Shriniwas Kadam.</p>

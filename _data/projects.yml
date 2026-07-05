@@ -1,0 +1,9 @@
+- title: "Quadruped Locomotion RL"
+  desc: "Sim-to-Real transfer using PPO on uneven terrain."
+  image: "/assets/images/projects/quadruped.jpg"
+  url: "https://github.com/shrikadam/quadruped-rl"
+
+- title: "Glass Grasping Net"
+  desc: "Depth completion for transparent objects."
+  image: "/assets/images/projects/grasping.jpg"
+  url: "https://github.com/shrikadam/glass-grasp"
