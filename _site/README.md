@@ -1,72 +1,74 @@
-# Minimalist AI/Robotics Portfolio Template
+Here is your complete, end-to-end cheat sheet for publishing a new blog post with an image. Keep this handy for whenever you want to update your site!
 
-A clean, single-page portfolio website designed for AI Researchers and Roboticists. It features a responsive grid layout, a dedicated list view for publications and blogs, and a client-side search engine—all contained within a **single HTML file**.
+### 📂 Step 1: Organize Your Image
 
-**Live Demo:** [Link to your github.io page]
+Before you write a single word, get your media organized so your repository stays clean.
 
+1. Navigate to your `assets/images/posts/` folder.
+2. Create a new folder specifically for this post. Let's call it `my-post`.
+3. Drop your image into that new folder (e.g., `image.jpg`).
+* *Path:* `assets/images/posts/my-post/image.jpg`
+
+### 📄 Step 2: Create the Markdown File
+
+Jekyll requires a very strict naming convention for posts so it knows how to date them automatically.
+
+1. Go into your `_posts/` folder.
+2. Create a new file named with today's date and your URL slug: `2026-07-05-my-post.md`.
+
+### ✍️ Step 3: Write the Front Matter
+
+Open your new `.md` file. At the very top, you must tell Jekyll what layout to use and what the title is. Paste this:
+
+```markdown
 ---
-
-## 🚀 Features
-
-* **Single File:** No frameworks, no build steps (React/Vue/Jekyll), just one `index.html`.
-* **Instant Search:** Filter projects, papers, videos, and blogs in real-time.
-* **Smart "See All" Logic:** Automatically handles expanding/collapsing lists based on custom item limits.
-* **Academic Focused:** Specialized layouts for "Projects" (Grid), "Papers" (List), and "Blogs" (Date-aligned List).
-* **Responsive:** Looks great on mobile, tablet, and desktop.
-* **Zero Maintenance:** Host for free on GitHub Pages.
-
+layout: post
+title: "My Second Post: Hardware Integration"
+subtitle: "Wiring the new robotic arm and debugging the servos."
 ---
+```
 
-## 🚀 How to Host (Free via GitHub Pages)
+### 🖼️ Step 4: Write the Content & Insert the Image
 
-1.  **Create a Repository:**
-    * Go to GitHub and create a new repository named `username.github.io` (replace `username` with your actual GitHub username).
-    * *Note: If you name it something else (e.g., `my-portfolio`), your site will be at `username.github.io/my-portfolio`.*
+Below the second `---`, write your blog post using standard Markdown.
 
-2.  **Upload Files:**
-    * Upload the `index.html` file to this repository.
-    * (Optional) Create a folder named `assets` or `images` and upload your profile picture and project thumbnails there.
+To insert the image you saved in Step 1, use the Markdown image syntax. **Make sure you include the leading forward slash (`/`)** so Jekyll knows to look from the root of your website:
 
-3.  **Activate Pages:**
-    * Go to Repository **Settings** > **Pages** (in the sidebar).
-    * Under **Build and deployment**, ensure **Source** is set to "Deploy from a branch".
-    * Select **main** (or master) branch and `/ (root)` folder.
-    * Click **Save**.
+```markdown
+It took a few tries, but the new robotic arm is finally wired up and responding to the controller.
 
-4.  **Live:** Wait about 1-2 minutes. Your site will be live at `https://username.github.io`.
+Here is a look at the final hardware setup:
 
----
+![A custom 3D printed robotic arm](/assets/images/posts/my-post/image.jpg)
 
-## 🛠 Quick Start
+The next step will be writing the Python script to control the kinematics. Here is a sneak peek:
 
-1.  **Download:** Save the `index.html` file to a folder on your computer.
-2.  **Images:** Create a folder named `images` next to it. Add your profile photo (e.g., `me.jpg`).
-3.  **Run:** Double-click `index.html` to open it in your browser. That's it!
+```python
+def move_to_target(x, y, z):
+    # Kinematics logic goes here
+    pass
+```
 
----
 
-## 📝 Content Management
+### 💻 Step 5: Preview Locally
+Don't push it to the world until you know it looks perfect.
+1. Open your terminal and navigate to your `shrikadam.github.io` folder.
+2. Run your local server:
+   ```bash
+   bundle exec jekyll serve
+   ```
 
-Since there is no database, you manage content by editing the HTML tags directly.
+3. Open your browser to `http://127.0.0.1:4000`.
+4. Check your homepage—you will see "My Second Post" automatically added to the top of the Blog list! Click it to make sure your image loaded correctly and the code highlighting looks good.
 
-### 1. Profile & Bio
-Look for the `` section.
-* **Photo:** Change `<img src="...">` to your file path.
-* **Name/Role:** Edit the text inside `<h1>` and `<span class="role">`.
-* **Socials:** Update the `href="#"` links in the `.socials` div.
+### 🚀 Step 6: Publish to GitHub
 
-### 2. Adding a New Project / Video
-Copy the code block below and paste it inside `<div class="grid" id="grid-projects">` (or `#grid-videos`).
-**Important:** You must include the class `search-target` for the search bar to find it.
+Once you are happy with the local preview, stop the server (press `Ctrl + C` in the terminal) and push your changes to GitHub.
 
-```html
-<a href="LINK_TO_PROJECT" class="card search-target">
-    <div class="thumbnail">
-        <img src="path/to/image.jpg" alt="Project Name">
-    </div>
-    <div class="card-content">
-        <span class="card-title">Project Title</span>
-        <p class="card-meta">Tech Stack / Year</p>
-        <p class="card-desc">Short description of what you built.</p>
-    </div>
-</a>
+```bash
+git add .
+git commit -m "Added new blog post with image"
+git push origin main
+```
+
+Wait about 60 seconds, refresh your live `shrikadam.github.io` website, and your new post will be live for everyone to read.

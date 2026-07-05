@@ -1,12 +1,12 @@
-- title: "Learning Dexterous Manipulation from Video"
-  authors: "<strong>S. Kadam</strong>, B. Gates."
-  venue: "ICRA 2025"
-  pdf: "https://arxiv.org/pdf/your-paper.pdf"
-  code: "https://github.com/shrikadam/dex-manip"
-  website: "https://shrikadam.github.io/dex-manip-project"
-
-- title: "Robust Perception for Field Robotics"
-  authors: "E. Musk, <strong>S. Kadam</strong>."
-  venue: "IROS 2024"
-  pdf: "https://arxiv.org/pdf/older-paper.pdf"
+- title: "Machine Vision Based Autonomous Fruit Inspection and Sorting"
+  authors: "K. Patil, <strong>S. Kadam</strong> et al."
+  venue: "IRJET 2016"
+  pdf: "https://www.irjet.net/archives/V3/i7/IRJET-V3I781.pdf"
   # Notice: No code or website links here
+
+# - title: "Learning Dexterous Manipulation from Video"
+#   authors: "<strong>S. Kadam</strong>, B. Gates."
+#   venue: "ICRA 2025"
+#   pdf: "https://arxiv.org/pdf/your-paper.pdf"
+#   code: "https://github.com/shrikadam/dex-manip"
+#   website: "https://shrikadam.github.io/dex-manip-project"

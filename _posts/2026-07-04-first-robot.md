@@ -1,18 +1,7 @@
 ---
 layout: post
-title: "My First Robot"
-subtitle: "Lessons learned from building a line follower."
+title: "Lorem Ipsum"
+subtitle: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
 ---
 
-Writing blogs is now incredibly easy! 
-
-I can write simple text, use **bolding**, and create lists:
-* PID controllers are tricky.
-* Hardware fails often.
-
-I can also add code blocks easily:
-
-```python
-def calculate_error(sensor_data):
-    return desired_value - sensor_data
-```
+Aenean quis vulputate diam. Maecenas mauris est, pulvinar vel bibendum a, dapibus id ex. Fusce sed sapien at elit tincidunt viverra. Nulla aliquet eget nisl vitae tristique. Suspendisse arcu nunc, aliquam sed ante vitae, tristique facilisis justo. Quisque eget velit nisl. In velit justo, tincidunt eget nibh porta, mattis convallis augue. Vestibulum vulputate mattis eros at convallis. Integer id risus molestie, lacinia felis a, bibendum turpis. Sed luctus lobortis nisi quis tincidunt. Vestibulum sit amet ullamcorper elit. Sed id scelerisque tellus, non commodo massa. Suspendisse iaculis ullamcorper magna, vitae tincidunt quam scelerisque quis. Duis tincidunt sit amet augue non varius. Praesent pulvinar nisi a ex tincidunt, id cursus eros vestibulum.
