@@ -171,41 +171,84 @@
 <body>
 
     <div class="container">
-        {% if page.url == '/' or page.url == '/index.html' %}
-        <header>
-            <img src="{{ '/assets/images/profile.png' | relative_url }}" alt="Profile Photo" class="profile-photo">
+        
 
-            <div class="bio-section">
-                <!-- <nav>
-                    <ul>
-                        <li><a href="{{ '/' | relative_url }}#blogs">Blog</a></li>
-                        <li><a href="{{ '/' | relative_url }}#projects">Projects</a></li>
-                        <li><a href="{{ '/' | relative_url }}#papers">Papers</a></li>
-                        <li><a href="{{ '/' | relative_url }}#videos">Videos</a></li>
-                    </ul>
-                </nav>  -->
+        <article style="max-width: 800px; margin: 0 auto;">
+    <a href="/" style="color: var(--accent-color); font-weight: 600;">← Back to Home</a>
+    
+    <h1 style="font-size: 2.5rem; margin-top: 30px; margin-bottom: 10px;">From 7 to 27 FPS 6D Pose Estimation Part 2: The Investigation</h1>
+    <p style="color: var(--secondary-text); margin-bottom: 40px; font-family: monospace;">
+        July 09, 2026
+    </p>
 
-                <h1>Shriniwas Kadam</h1>
-                <span class="role">AI Roboticist & Researcher</span>
-                <p>
-                    Building robots that act in the unstructured world.
-                </p>
+    <div class="post-content">
+        <p>At the end of Part 1, I was staring at a PyTorch Profiler timeline that perfectly captured the frustration of edge deployment. The RTX 5070 GPU was blazing fast, computing matrix multiplications in fractions of a millisecond. But between those bursts of compute, it sat completely idle.</p>
 
-                <div class="socials">
-                    <a href="https://github.com/shrikadam" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="https://www.linkedin.com/in/shrikadam" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <a href="https://www.youtube.com/@volo.machina" target="_blank" rel="noopener noreferrer">YouTube</a>
-                    <!-- <a href="#">Google Scholar</a> -->
-                </div>
+<p>The frame rate was hard-capped at 15 FPS. The culprit? A massive, unbroken execution block in the CPU timeline labeled <code class="language-plaintext highlighter-rouge">multiprocessing/queues.py</code>.</p>
 
-                <div class="search-wrapper">
-                    <input type="text" id="searchInput" placeholder="Search projects, papers, topics...">
-                </div>
-            </div>
-        </header>
-        {% endif %}
+<p>To fix this, I had to understand why the original MegaPose architects put it there in the first place, and why standard Python optimization was about to blow up in my face.</p>
 
-        {{ content }}
+<h3 id="the-architecture-of-a-bottleneck">The Architecture of a Bottleneck</h3>
+
+<p>MegaPose was originally built to track dozens of objects simultaneously on server-grade hardware. To generate the CAD templates for the neural network, it uses Panda3D.</p>
+
+<p>But Panda3D is a desktop game engine. Its CPU-side rendering preparation—looping through objects, calculating transforms, and updating the scene graph—is heavy. Because of Python’s Global Interpreter Lock (GIL), you cannot run this rendering prep concurrently with PyTorch in the same process.</p>
+
+<p>The original authors’ solution was to wrap Panda3D in a <code class="language-plaintext highlighter-rouge">Panda3dBatchRenderer</code> that spun up separate background worker processes. The workers rendered the images, serialized them into NumPy arrays, and pushed them through an OS-level Inter-Process Communication (IPC) queue to the main PyTorch thread.</p>
+
+<p>On a 64-core server, this is fine. On a physically constrained edge device tracking a single object, the IPC tax—the OS locking, copying memory across processes, and deserializing—was completely swallowing the time I saved with my PyTorch optimizations.</p>
+
+<h3 id="the-obvious-fix-single-threaded-surgery">The “Obvious” Fix: Single-Threaded Surgery</h3>
+
+<p>The data didn’t lie: spinning up a separate multiprocessing background worker to render a single object was slower than just doing it in the main thread.</p>
+
+<p>I decided to perform open-heart surgery on the inference loop. I ripped out the <code class="language-plaintext highlighter-rouge">Panda3dBatchRenderer</code> and replaced it with direct, synchronous calls to the single-threaded <code class="language-plaintext highlighter-rouge">Panda3dSceneRenderer</code> directly inside the neural network’s forward pass. No background workers, no OS queues, no IPC overhead.</p>
+
+<p>I fired up the inference script, expecting to see the frame rate soar.</p>
+
+<p>Instead, the frame rate tanked from 15 FPS down to 9 FPS.</p>
+
+<p>Welcome to the humbling reality of systems engineering. I had just stumbled into the Single-Threaded Trap.</p>
+
+<h3 id="anatomy-of-the-9-fps-disaster">Anatomy of the 9 FPS Disaster</h3>
+
+<p>When I eliminated the multiprocessing queue, I forced the entire script to run completely sequentially on a single CPU core.</p>
+
+<p>In the old architecture, even though the IPC queue was slow, the CPU was preparing Panda3D’s scene graph on Worker 1 while the main thread ran the neural network. Now, my single CPU core had to build the scene graph, tell the GPU to render, wait for the image, and <em>then</em> run the ResNet convolutions back-to-back.</p>
+
+<p>But the real killer was buried in the data types. Look at this line of code from the single-threaded loop:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">depth_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">renderings</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">depth</span><span class="p">).</span><span class="n">to</span><span class="p">(</span><span class="s">"cuda"</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>Panda3D generates outputs as NumPy arrays. By definition, a NumPy array lives in the CPU’s RAM. To get that array, the CPU must issue a hard hardware synchronization command. It literally halts the Python interpreter, waits for the GPU to finish physically drawing the pixels, copies the data across the PCIe bus to RAM, wraps it in NumPy, and <em>then</em> we tell PyTorch to copy it right back across the PCIe bus to the GPU VRAM.</p>
+
+<p>I had successfully built a direct pipeline, but the NumPy conversions were acting as a massive emergency brake.</p>
+
+<h3 id="the-paradigm-shift">The Paradigm Shift</h3>
+
+<p>This 9 FPS disaster was the exact evidence I needed. I had officially pushed Python to its physical architectural limit for this codebase.</p>
+
+<p>I proved two critical things:</p>
+
+<ol>
+  <li>Multiprocessing queues introduce massive latency that chokes edge hardware.</li>
+  <li>Single-threaded Python rendering starves the GPU because game-engine scene graphs and NumPy sync points block execution.</li>
+</ol>
+
+<p>If I wanted to cross the 30 FPS threshold, I couldn’t just tweak Python wrappers around a desktop engine. I needed to eliminate the scene graph, bypass the PCIe bus, and never let a pixel touch CPU RAM.</p>
+
+<p>I needed a pure, bare-metal C++ hardware rasterizer that could take a PyTorch tensor of 3D vertices, blast them onto the GPU, and write the RGB pixels directly into another PyTorch tensor. Zero copies. Zero NumPy. Zero Python GIL.</p>
+
+<p>It was time to rip out Panda3D entirely.</p>
+
+<p><em>(To be continued in Part 3: Catalysis - Dropping to Bare Metal…)</em></p>
+
+<hr />
+
+    </div>
+</article>
 
         <footer>
             <p>&copy; 2026 Shriniwas Kadam.</p>
