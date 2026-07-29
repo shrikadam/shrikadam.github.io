@@ -125,16 +125,25 @@
 
         /* --- BLOGS --- */
         .blog-list { display: flex; flex-direction: column; gap: 0; }
-        .blog-item { display: flex; padding: 12px 0; border-bottom: 1px solid #f0f0f0; align-items: baseline; }
+        /* Changed align-items from baseline to center so the image aligns nicely */
+        .blog-item { display: flex; padding: 15px 0; border-bottom: 1px solid #f0f0f0; align-items: center; } 
+        .blog-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 20px; }
         .blog-item:hover .blog-title { color: var(--accent-color); }
         .blog-date { width: 120px; flex-shrink: 0; font-size: 0.85rem; color: var(--secondary-text); font-family: monospace; }
+        
+        /* NEW: Thumbnail Styling (Moved to right, 4:3 ratio) */
+        .blog-thumb { width: 100px; height: 75px; flex-shrink: 0; margin-left: 20px; border-radius: 4px; overflow: hidden; background-color: #f4f4f4; border: 1px solid var(--border-color); }
+        .blog-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        
         .blog-content { flex-grow: 1; }
         .blog-title { font-size: 1rem; font-weight: 600; display: block; margin-bottom: 4px; }
         .blog-subtitle { font-size: 0.9rem; color: #666; display: block; }
 
         @media (max-width: 600px) {
-            .blog-item { flex-direction: column; gap: 5px; }
-            .blog-date { width: auto; font-size: 0.8rem; color: #888; margin-bottom: 2px; }
+            .blog-item { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .blog-date { width: auto; font-size: 0.8rem; color: #888; margin-bottom: 0; }
+            /* Mobile thumbnail logic */
+            .blog-thumb { width: 100%; height: auto; aspect-ratio: 4/3; margin-left: 0; margin-top: 10px; }
         }
 
         /* --- UTILS --- */
@@ -176,9 +185,9 @@
         <article style="max-width: 800px; margin: 0 auto;">
     <a href="/" style="color: var(--accent-color); font-weight: 600;">← Back to Home</a>
     
-    <h1 style="font-size: 2.5rem; margin-top: 30px; margin-bottom: 10px;">From 7 to 27 FPS 6D Pose Estimation Part 1: Low Hanging PyTorch Fruits</h1>
+    <h1 style="font-size: 2.5rem; margin-top: 30px; margin-bottom: 10px;">Part 1 - The Easy 2×: Low-hanging PyTorch wins</h1>
     <p style="color: var(--secondary-text); margin-bottom: 40px; font-family: monospace;">
-        July 04, 2026
+        July 02, 2026
     </p>
 
     <div class="post-content">
@@ -242,11 +251,7 @@
 
 <p>I had eliminated the deep learning bottlenecks, only to uncover a catastrophic systems engineering bottleneck. To break the 30 FPS barrier, tweaking Python wasn’t going to be enough. I was going to have to rip out the game engine entirely.</p>
 
-<p><em>(To be continued in Part 2: The Investigation…)</em></p>
-
-<hr />
-
-<p>How does this pacing feel for the first part of the blog series before we dive into the technical specifics of Part 2?</p>
+<p><em>(To be continued in Part 2: If the GPU is so Fast…)</em></p>
 
     </div>
 </article>

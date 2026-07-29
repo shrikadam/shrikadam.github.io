@@ -12,83 +12,90 @@ layout: default
         {% for post in site.posts limit:6 %}
         <a href="{{ post.url | relative_url }}" class="blog-item search-target">
             <div class="blog-date">{{ post.date | date: "%b %d, %Y" }}</div>
+
+            <!-- Content is now in the middle -->
             <div class="blog-content">
                 <span class="blog-title">{{ post.title }}</span>
                 <span class="blog-subtitle">{{ post.subtitle }}</span>
             </div>
+
+            <!-- Thumbnail is now on the right -->
+            {% if post.image %}
+            <div class="blog-thumb">
+                <img src="{{ post.image | relative_url }}" alt="Thumbnail">
+            </div>
+            {% endif %}
         </a>
         {% endfor %}
     </div>
-    <div class="no-results">No posts found.</div>
-</section>
 
-<section id="projects">
-    <div class="section-header">
-        <h2>Projects</h2>
-        <button class="see-all-btn" onclick="toggleSection('projects')">See All</button>
-    </div>
-    <div class="grid" id="grid-projects">
-        {% for project in site.data.projects %}
-        <a href="{{ project.url }}" target="_blank" rel="noopener noreferrer" class="card search-target">
-            <div class="thumbnail">
-                <img src="{{ project.image | relative_url }}" alt="{{ project.title }}"
-                    style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="card-content">
-                <span class="card-title">{{ project.title }}</span>
-                <p class="card-desc">{{ project.desc }}</p>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-    <div class="no-results">No projects found.</div>
-</section>
+    <section id="projects">
+        <div class="section-header">
+            <h2>Projects</h2>
+            <button class="see-all-btn" onclick="toggleSection('projects')">See All</button>
+        </div>
+        <div class="grid" id="grid-projects">
+            {% for project in site.data.projects %}
+            <a href="{{ project.url }}" target="_blank" rel="noopener noreferrer" class="card search-target">
+                <div class="thumbnail">
+                    <img src="{{ project.image | relative_url }}" alt="{{ project.title }}"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="card-content">
+                    <span class="card-title">{{ project.title }}</span>
+                    <p class="card-desc">{{ project.desc }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="no-results">No projects found.</div>
+    </section>
 
-<section id="videos">
-    <div class="section-header">
-        <h2>Videos</h2>
-        <button class="see-all-btn" onclick="toggleSection('videos')">See All</button>
-    </div>
-    <div class="grid" id="grid-videos">
-        {% for video in site.data.videos %}
-        <a href="https://www.youtube.com/watch?v={{ video.id }}" target="_blank" rel="noopener noreferrer"
-            class="card search-target">
-            <div class="thumbnail">
-                <img src="https://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg" alt="{{ video.title }}"
-                    style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="card-content">
-                <span class="card-title">{{ video.title }}</span>
-                <p class="card-meta">{{ video.meta }}</p>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-    <div class="no-results">No videos found.</div>
-</section>
+    <section id="videos">
+        <div class="section-header">
+            <h2>Videos</h2>
+            <button class="see-all-btn" onclick="toggleSection('videos')">See All</button>
+        </div>
+        <div class="grid" id="grid-videos">
+            {% for video in site.data.videos %}
+            <a href="https://www.youtube.com/watch?v={{ video.id }}" target="_blank" rel="noopener noreferrer"
+                class="card search-target">
+                <div class="thumbnail">
+                    <img src="https://img.youtube.com/vi/{{ video.id }}/hqdefault.jpg" alt="{{ video.title }}"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="card-content">
+                    <span class="card-title">{{ video.title }}</span>
+                    <p class="card-meta">{{ video.meta }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="no-results">No videos found.</div>
+    </section>
 
-<section id="papers">
-    <div class="section-header">
-        <h2>Selected Papers</h2>
-        <button class="see-all-btn" onclick="toggleSection('papers')">See All</button>
-    </div>
-    <div id="list-papers">
-        {% for paper in site.data.papers %}
-        <div class="paper-item search-target">
-            <div class="paper-thumb">
-            </div>
-            <div class="paper-details">
-                <h3>{{ paper.title }}</h3>
-                <p>{{ paper.authors }} <em>{{ paper.venue }}</em></p>
-                <div class="paper-links">
-                    {% if paper.pdf %}<a href="{{ paper.pdf }}" target="_blank">[PDF]</a>{% endif %}
-                    {% if paper.code %}<a href="{{ paper.code }}" target="_blank">[Code]</a>{% endif %}
-                    {% if paper.website %}<a href="{{ paper.website }}" target="_blank">[Website]</a>{% endif %}
+    <section id="papers">
+        <div class="section-header">
+            <h2>Selected Papers</h2>
+            <button class="see-all-btn" onclick="toggleSection('papers')">See All</button>
+        </div>
+        <div id="list-papers">
+            {% for paper in site.data.papers %}
+            <div class="paper-item search-target">
+                <div class="paper-thumb">
+                </div>
+                <div class="paper-details">
+                    <h3>{{ paper.title }}</h3>
+                    <p>{{ paper.authors }} <em>{{ paper.venue }}</em></p>
+                    <div class="paper-links">
+                        {% if paper.pdf %}<a href="{{ paper.pdf }}" target="_blank">[PDF]</a>{% endif %}
+                        {% if paper.code %}<a href="{{ paper.code }}" target="_blank">[Code]</a>{% endif %}
+                        {% if paper.website %}<a href="{{ paper.website }}" target="_blank">[Website]</a>{% endif %}
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    <div class="no-results">No papers found.</div>
-</section>
+        <div class="no-results">No papers found.</div>
+    </section>
 </section>
