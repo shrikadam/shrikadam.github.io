@@ -5,5 +5,5 @@
 
 - title: "LisSAM6D"
   desc: "Lightweight 6D Pose Estimation and Tracking in C++."
-  image: "/assets/images/projects/grasping.jpg"
+  image: "/assets/images/projects/lissam6d.png"
   url: "https://github.com/shrikadam/lissam6d"
